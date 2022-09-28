@@ -79,7 +79,7 @@ const PokemonListing: React.FC<{
           src={props.pokemon.spriteUrl}
           alt={props.pokemon.name}
         />
-        <div className="text-xl capitalize mt-[-2rem]">
+        <div className="text-xl capitalize mt-[-1rem]">
           {props.pokemon.name}
         </div>
       </div>
