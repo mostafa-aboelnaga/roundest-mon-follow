@@ -1,9 +1,10 @@
 import { getOptionsForVote } from "@/utils/getRandomPokemon";
 import type { NextPage } from "next";
-import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { trpc } from "../utils/trpc";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
+
+import Image from "next/image";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(() => getOptionsForVote());
@@ -67,8 +68,10 @@ const PokemonListing: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <img
-        className="w-64 h-64"
+      <Image
+        width={256}
+        height={256}
+        layout="fixed"
         src={props.pokemon.sprites.front_default!}
         alt=" "
       />
