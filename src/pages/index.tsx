@@ -5,6 +5,7 @@ import { trpc } from "../utils/trpc";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(() => getOptionsForVote());
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="text-2xl text-center">Which Pokémon is Rounder?</div>
       <div className="p-2" />
-      <div className="border rounded p-8 flex items-center justify-between max-w-2xl">
+      <div className="border rounded p-8 flex items-center justify-center max-w-2xl">
         {!firstPokemon.isLoading &&
           firstPokemon.data &&
           !secondPokemon.isLoading &&
@@ -56,6 +57,11 @@ const Home: NextPage = () => {
           )}
 
         <div className="p-3" />
+      </div>
+      <div className="p-8">
+        <Link href="/results">
+          <a>Check the results</a>
+        </Link>
       </div>
     </div>
   );
