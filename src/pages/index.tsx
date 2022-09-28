@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="text-2xl text-center">Which Pokemon is rounder?</div>
+      <div className="text-2xl text-center">Which Pokémon is Rounder?</div>
       <div className="p-2" />
       <div className="border rounded p-8 flex items-center justify-between max-w-2xl">
         {!firstPokemon.isLoading &&
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               vote={() => voteForRoundest(first!)}
             />
           )}
-        <div className="p-8">Vs</div>
+        <div className="p-8">VS</div>
         {!firstPokemon.isLoading &&
           firstPokemon.data &&
           !secondPokemon.isLoading &&
@@ -67,20 +67,24 @@ const PokemonListing: React.FC<{
   vote: () => void;
 }> = (props) => {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <Image
-        width={256}
-        height={256}
-        layout="fixed"
-        src={props.pokemon.spriteUrl}
-        alt={props.pokemon.name}
-      />
-      <div className="text-xl capitalize mt-[-2rem]">{props.pokemon.name}</div>
+    <div className="py-8 flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center mt-[-64px]">
+        <Image
+          width={256}
+          height={256}
+          layout="fixed"
+          src={props.pokemon.spriteUrl}
+          alt={props.pokemon.name}
+        />
+        <div className="text-xl capitalize mt-[-2rem]">
+          {props.pokemon.name}
+        </div>
+      </div>
       <button
-        className="text-black inline-flex items-center justify-center rounded-md bg-white p-2 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        className="text-black inline-flex mt-7 items-center justify-center rounded-md bg-white p-2 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
         onClick={() => props.vote()}
       >
-        Rounder
+        ROUNDER
       </button>
     </div>
   );
