@@ -20,8 +20,6 @@ const Home: NextPage = () => {
 
   const voteMutation = trpc.useMutation(["pokemons.cast-vote"]);
 
-  if (firstPokemon.isLoading || secondPokemon.isLoading) return null;
-
   const voteForRoundest = (selected: number) => {
     if (selected === first) {
       voteMutation.mutate({ votedFor: first!, votedAgainst: second! });
@@ -31,34 +29,33 @@ const Home: NextPage = () => {
     updateIds(getOptionsForVote());
   };
 
-  return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="text-2xl text-center">Which Pokémon is Rounder?</div>
-      <div className="p-2" />
-      <div className="border rounded p-8 flex items-center justify-center max-w-2xl">
-        {!firstPokemon.isLoading &&
-          firstPokemon.data &&
-          !secondPokemon.isLoading &&
-          secondPokemon.data && (
-            <PokemonListing
-              pokemon={firstPokemon.data}
-              vote={() => voteForRoundest(first!)}
-            />
-          )}
-        <div className="p-8">VS</div>
-        {!firstPokemon.isLoading &&
-          firstPokemon.data &&
-          !secondPokemon.isLoading &&
-          secondPokemon.data && (
-            <PokemonListing
-              pokemon={secondPokemon.data}
-              vote={() => voteForRoundest(second!)}
-            />
-          )}
+  // const dataLoaded = false;
+  const dataLoaded =
+    !firstPokemon.isLoading &&
+    firstPokemon.data &&
+    !secondPokemon.isLoading &&
+    secondPokemon.data;
 
-        <div className="p-3" />
-      </div>
-      <div className="p-8">
+  return (
+    <div className="h-screen w-screen flex flex-col justify-between items-center p-16">
+      <div className="text-2xl text-center">Which Pokémon is Rounder?</div>
+      {dataLoaded && (
+        <div className="rounded m-0 p-8 flex items-center justify-center max-w-2xl">
+          <PokemonListing
+            pokemon={firstPokemon.data!}
+            vote={() => voteForRoundest(first!)}
+          />
+          <div className="p-8">VS</div>
+          <PokemonListing
+            pokemon={secondPokemon.data!}
+            vote={() => voteForRoundest(second!)}
+          />
+          <div className="p-3" />
+        </div>
+      )}
+      {!dataLoaded && <img src="/puff.svg" className="w-64 h-64" />}
+
+      <div className="w-full text-xl text-center p-8">
         <Link href="/results">
           <a>Check the results</a>
         </Link>
