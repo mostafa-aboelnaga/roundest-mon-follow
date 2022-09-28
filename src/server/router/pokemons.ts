@@ -14,6 +14,7 @@ export const pokemonsRouter = createRouter()
           id: input.id,
         },
       });
+      
       if (!pokemon) {
         throw new TRPCError({
           message: "Pokemon doesn't exist",
