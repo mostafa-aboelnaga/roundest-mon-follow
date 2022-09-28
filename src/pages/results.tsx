@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import { prisma } from "@/server/db/client";
 import { AsyncReturnType } from "@/utils/ts-bs";
 import Image from "next/image";
+import Link from "next/link";
 
 const getPokemonInOrder = async () => {
   return await prisma.pokemon.findMany({
@@ -53,7 +54,14 @@ const ResultsPage: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-3xl p-8">Results!</h2>
+      <div className="flex py-8 px-0 w-full max-w-2xl items-center justify-between">
+        <h2 className="text-3xl">Results</h2>
+        <div className="text-lg">
+          <Link href="/">
+            <a>← Home</a>
+          </Link>
+        </div>
+      </div>
       <div className="flex flex-col w-full max-w-2xl">
         {props.pokemon.map((currentPokemon, index) => {
           return <PokemonListing key={index} pokemon={currentPokemon} />;
