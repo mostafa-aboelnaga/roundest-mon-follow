@@ -37,7 +37,7 @@ const Home: NextPage = () => {
     secondPokemon.data;
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-between items-center p-16">
+    <div className="h-screen w-screen flex flex-col justify-between items-center p-32">
       <div className="text-2xl text-center">Which Pokémon is Rounder?</div>
       {dataLoaded && (
         <div className="rounded m-0 p-8 flex items-center justify-center max-w-2xl">
