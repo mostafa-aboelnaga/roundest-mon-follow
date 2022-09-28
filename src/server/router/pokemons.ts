@@ -1,8 +1,7 @@
 import { createRouter } from "./context";
 import { z } from "zod";
-
-import { PokemonClient } from "pokenode-ts";
 import { prisma } from "../db/client";
+import { TRPCError } from "@trpc/server";
 
 export const pokemonsRouter = createRouter()
   .query("get-pokemon", {
@@ -10,9 +9,19 @@ export const pokemonsRouter = createRouter()
       id: z.number(),
     }),
     async resolve({ input }) {
-      const api = new PokemonClient();
-      const pokemon = await api.getPokemonById(input.id);
-      return { name: pokemon.name, sprites: pokemon.sprites };
+      const pokemon = await prisma.pokemon.findFirst({
+        where: {
+          id: input.id,
+        },
+      });
+      if (!pokemon) {
+        throw new TRPCError({
+          message: "Pokemon doesn't exist",
+          code: "NOT_FOUND",
+        });
+      }
+
+      return pokemon;
     },
   })
   .mutation("cast-vote", {
